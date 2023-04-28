@@ -1,0 +1,15 @@
+syntax = "proto3";
+package my_interface.v1;
+option go_package = "proto_example/gen/my_interface/v1;my_interfacev1";
+
+service TestService2 {
+    rpc TestRpc2(TestRequest2) returns (TestResponse2);
+}
+
+message TestRequest2 {
+    int32 request_value = 1;
+}
+
+message TestResponse2 {
+    int32 response_value = 1;
+}
