@@ -22,7 +22,7 @@ func (s *TestService1) TestRpc1(
 ) (*connect.Response[v1.TestResponse1], error) {
 	log.Println("Request headers: ", req.Header())
 	res := connect.NewResponse(&v1.TestResponse1{
-		ResponseContent: fmt.Sprintf("Hello, %s!", req.Msg.RequestContent),
+		ResponseContent: fmt.Sprintf("response:%s", req.Msg.RequestContent),
 	})
 	return res, nil
 }
@@ -41,9 +41,9 @@ func (s *TestService1) TestRpc1_2(
 	ctx context.Context,
 	req *connect.Request[v1.CommonMessage],
 ) (*connect.Response[v1.TestResponse1], error) {
-	log.Printf("enum value:%v\n", req.Msg.EnumValue)
+	log.Printf("enum value:%s\n", req.Msg.EnumValue.String())
 	res := connect.NewResponse(&v1.TestResponse1{
-		ResponseContent: "TestRpc1_2 response",
+		ResponseContent: req.Msg.Content + req.Msg.Content,
 	})
 	return res, nil
 }
@@ -55,7 +55,7 @@ func (s *TestService2) TestRpc2(
 	req *connect.Request[v1.TestRequest2],
 ) (*connect.Response[v1.TestResponse2], error) {
 	res := connect.NewResponse(&v1.TestResponse2{
-		ResponseValue: 200,
+		ResponseValue: req.Msg.RequestValue - 1,
 	})
 	return res, nil
 }
@@ -64,6 +64,7 @@ func (s *TestService2) TestRpc2_1(
 	ctx context.Context,
 	req *connect.Request[v1.CommonMessage],
 ) (*connect.Response[v1.TestResponse2], error) {
+	log.Printf("enum value:%s\n", req.Msg.EnumValue.String())
 	res := connect.NewResponse(&v1.TestResponse2{
 		ResponseValue: 300,
 	})
