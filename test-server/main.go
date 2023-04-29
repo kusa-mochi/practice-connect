@@ -50,11 +50,34 @@ func (s *TestService1) TestRpc1_2(
 
 type TestService2 struct{}
 
+func (s *TestService2) TestRpc2(
+	ctx context.Context,
+	req *connect.Request[v1.TestRequest2],
+) (*connect.Response[v1.TestResponse2], error) {
+	res := connect.NewResponse(&v1.TestResponse2{
+		ResponseValue: 200,
+	})
+	return res, nil
+}
+
+func (s *TestService2) TestRpc2_1(
+	ctx context.Context,
+	req *connect.Request[v1.CommonMessage],
+) (*connect.Response[v1.TestResponse2], error) {
+	res := connect.NewResponse(&v1.TestResponse2{
+		ResponseValue: 300,
+	})
+	return res, nil
+}
+
 func main() {
 	service1 := &TestService1{}
+	service2 := &TestService2{}
 	mux := http.NewServeMux()
-	path, handler := v1connect.NewTestService1Handler(service1)
-	mux.Handle(path, handler)
+	path1, handler1 := v1connect.NewTestService1Handler(service1)
+	path2, handler2 := v1connect.NewTestService2Handler(service2)
+	mux.Handle(path1, handler1)
+	mux.Handle(path2, handler2)
 	log.Println("listening...")
 	http.ListenAndServe(
 		"localhost:8080",
