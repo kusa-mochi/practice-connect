@@ -1,0 +1,14 @@
+syntax = "proto3";
+package my_interface.v1;
+option go_package = "proto_example/gen/my_interface/v1;my_interfacev1";
+
+enum TestEnum {
+    Value0 = 0;
+    Value1 = 1;
+    Value2 = 2;
+}
+
+message CommonMessage {
+    string content = 1;
+    TestEnum enum_value = 2;
+}

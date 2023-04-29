@@ -1,0 +1,11 @@
+@startuml protocol_buffers_references
+
+agent my_interface.proto
+agent another_interface.proto
+agent common.proto
+
+my_interface.proto --> another_interface.proto
+my_interface.proto --> common.proto
+another_interface.proto --> common.proto
+
+@enduml

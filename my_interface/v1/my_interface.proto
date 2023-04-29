@@ -2,16 +2,18 @@ syntax = "proto3";
 package my_interface.v1;
 option go_package = "proto_example/gen/my_interface/v1;my_interfacev1";
 import "my_interface/v1/another_interface.proto";
+import "my_interface/v1/common.proto";
 
-service TestService {
-    rpc TestRpc(TestRequest) returns (TestResponse);
-    rpc ImportTestRpc(TestRequest2) returns (TestResponse2);
+service TestService1 {
+    rpc TestRpc1(TestRequest1) returns (TestResponse1);
+    rpc TestRpc1_1(TestRequest2) returns (TestResponse2);
+    rpc TestRpc1_2(CommonMessage) returns (TestResponse1);
 }
 
-message TestRequest {
+message TestRequest1 {
     string request_content = 1;
 }
 
-message TestResponse {
+message TestResponse1 {
     string response_content = 1;
 }

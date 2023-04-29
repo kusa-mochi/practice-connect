@@ -1,0 +1,25 @@
+@startuml connection_design
+
+left to right direction
+
+package test_server {
+    TestRpc1 -- [TestService1]
+    TestRpc1_1 -- [TestService1]
+    TestRpc1_2 -- [TestService1]
+    TestRpc2 -- [TestService2]
+    TestRpc2_1 -- [TestService2]
+}
+
+[GoClient] --> TestRpc1
+[GoClient] --> TestRpc1_1
+[GoClient] --> TestRpc1_2
+[GoClient] --> TestRpc2
+[GoClient] --> TestRpc2_1
+
+[NodeClient] --> TestRpc1
+[NodeClient] --> TestRpc1_1
+[NodeClient] --> TestRpc1_2
+[NodeClient] --> TestRpc2
+[NodeClient] --> TestRpc2_1
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml sequence_design
+
+== Test RPC 1 ==
+
+"GoClient/NodeClient" -> TestService1 : TestRpc1("tesutesu1" TestRequest1)
+activate TestService1
+TestService1 --> "GoClient/NodeClient" : "response:tesutesu1" string
+deactivate TestService1
+
+== Test RPC 1_1 ==
+
+"GoClient/NodeClient" -> TestService1 : TestRpc1_1(100 int32)
+activate TestService1
+TestService1 --> "GoClient/NodeClient" : 101 int32
+deactivate TestService1
+
+== Test RPC 1_2 ==
+
+"GoClient/NodeClient" -> TestService1 : TestRpc1_2({Content:"tesu!", EnumValue:Value1} CommonMessage)
+activate TestService1
+TestService1 --> "GoClient/NodeClient" : "tesu!tesu!" string
+deactivate TestService1
+
+== Test RPC 2 ==
+
+"GoClient/NodeClient" -> TestService2 : TestRpc2(200 int32)
+activate TestService2
+TestService2 --> "GoClient/NodeClient" : 199 int32
+deactivate TestService2
+
+== Test RPC 2_1 ==
+
+"GoClient/NodeClient" -> TestService2 : TestRpc2_1({Content:"tesu2_1!", EnumValue:Value2} CommonMessage)
+activate TestService2
+TestService2 --> "GoClient/NodeClient" : 300 int32
+deactivate TestService2
+
+@enduml
